@@ -919,11 +919,29 @@
             display: none
         }
 
+        /* LOCK SCREEN ANIMATIONS */
+        @keyframes glowPulse {
+            0% { box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5); }
+            50% { box-shadow: 0 15px 50px rgba(255, 107, 157, 0.4); border-color: rgba(255,107,157,0.5); transform: scale(1.02); }
+            100% { box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5); }
+        }
+        @keyframes bgMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes pulseBox {
+            from { transform: translateY(0); box-shadow: inset 0 0 10px rgba(255,255,255,0.05); }
+            to { transform: translateY(-5px); box-shadow: inset 0 0 20px rgba(255,107,157,0.2), 0 5px 15px rgba(255,107,157,0.2); border-color: rgba(255,107,157,0.4); }
+        }
+
         /* LOCK SCREEN */
         .lock-screen {
             position: fixed;
             inset: 0;
-            background: var(--bg);
+            background: linear-gradient(-45deg, #0a0a1a, #1a0b1c, #0d0a20, #1c0f14);
+            background-size: 400% 400%;
+            animation: bgMove 15s ease infinite;
             z-index: 9999;
             display: flex;
             flex-direction: column;
@@ -944,7 +962,24 @@
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
             max-width: 90%;
             width: 350px;
+            animation: glowPulse 4s infinite ease-in-out;
         }
+
+        .cd-box {
+            background: rgba(255,255,255,0.05); 
+            border: 1px solid rgba(255,255,255,0.1); 
+            border-radius: 12px; 
+            padding: 10px; 
+            min-width: 65px; 
+            backdrop-filter: blur(5px); 
+            box-shadow: inset 0 0 10px rgba(255,255,255,0.05);
+            animation: pulseBox 2s infinite alternate ease-in-out;
+        }
+        
+        .cd-box:nth-child(1) { animation-delay: 0.0s; }
+        .cd-box:nth-child(2) { animation-delay: 0.2s; }
+        .cd-box:nth-child(3) { animation-delay: 0.4s; }
+        .cd-box:nth-child(4) { animation-delay: 0.6s; }
 
         .lock-icon {
             font-size: 4rem;
@@ -1026,19 +1061,19 @@
             <p class="lock-desc" style="margin-bottom: 20px;">Kejutan ini hanya bisa dibuka pada<br><strong style="color: var(--pink);">9 Agustus 2026, 00:00 WIB</strong></p>
             
             <div id="countdownUi" style="display: flex; gap: 10px; justify-content: center; margin-bottom: 25px;">
-                <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 10px; min-width: 65px; backdrop-filter: blur(5px); box-shadow: inset 0 0 10px rgba(255,255,255,0.05);">
+                <div class="cd-box">
                     <div id="cdDays" style="font-size: 1.8rem; font-weight: bold; color: white;">00</div>
                     <div style="font-size: 0.7rem; color: var(--txt2); text-transform: uppercase; letter-spacing: 1px;">Hari</div>
                 </div>
-                <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 10px; min-width: 65px; backdrop-filter: blur(5px); box-shadow: inset 0 0 10px rgba(255,255,255,0.05);">
+                <div class="cd-box">
                     <div id="cdHours" style="font-size: 1.8rem; font-weight: bold; color: white;">00</div>
                     <div style="font-size: 0.7rem; color: var(--txt2); text-transform: uppercase; letter-spacing: 1px;">Jam</div>
                 </div>
-                <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 10px; min-width: 65px; backdrop-filter: blur(5px); box-shadow: inset 0 0 10px rgba(255,255,255,0.05);">
+                <div class="cd-box">
                     <div id="cdMins" style="font-size: 1.8rem; font-weight: bold; color: white;">00</div>
                     <div style="font-size: 0.7rem; color: var(--txt2); text-transform: uppercase; letter-spacing: 1px;">Menit</div>
                 </div>
-                <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 10px; min-width: 65px; backdrop-filter: blur(5px); box-shadow: inset 0 0 10px rgba(255,255,255,0.05);">
+                <div class="cd-box">
                     <div id="cdSecs" style="font-size: 1.8rem; font-weight: bold; color: var(--pink);">00</div>
                     <div style="font-size: 0.7rem; color: var(--txt2); text-transform: uppercase; letter-spacing: 1px;">Detik</div>
                 </div>
